@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>My GIF Library</title>
+  <style>
+    body { font-family: sans-serif; background: #222; color: #eee; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fill, 200px); gap: 15px; }
+    .gif-box { text-align: center; }
+    img { max-width: 200px; border-radius: 10px; }
+    input { width: 100%; padding: 8px; margin-bottom: 15px; }
+  </style>
+</head>
+<body>
+  <h1>My GIF Library</h1>
+  <input type="text" id="search" placeholder="Search GIFs...">
+  <div class="grid" id="gifGrid"></div>
+
+  <script>
+    const gifs = [
+      {name: "Anna dmpdm", file: "Anna.mp4"},
+      {name: "Anna_2 dmpdm", file: "Anna_2.mp4"},
+    ];
+
+    const grid = document.getElementById("gifGrid");
+    const searchBox = document.getElementById("search");
+
+    function render(filter="") {
+      grid.innerHTML = "";
+      gifs.filter(g => g.name.includes(filter.toLowerCase()))
+          .forEach(g => {
+        grid.innerHTML += `
+          <div class="gif-box">
+            <img src="${g.file}" alt="${g.name}">
+            <p>${g.name}</p>
+          </div>`;
+      });
+    }
+
+    searchBox.addEventListener("input", e => render(e.target.value.toLowerCase()));
+    render();
+  </script>
+</body>
+</html>
